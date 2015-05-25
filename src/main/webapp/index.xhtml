@@ -1,0 +1,44 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>News Aggregator - Home</title>
+</h:head>
+
+<h:body>
+
+    <ui:include src="menu.xhtml" />
+
+    <div class="ui-grid-responsive" style="margin-top: 50px">
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-2"><h:outputText value="&#160;" /></div>
+
+            <div class="ui-grid-col-8" style="padding-left: 20px;">
+                <h:panelGroup rendered="#{not userSession.loggedIn}">
+                    <p>Welcome, Guest!</p>
+                    <p>Please Login or <a href="register.xhtml">Register a New Account</a> </p>
+
+                    <h:form>
+                        <p:panelGrid columns="2" cellpadding="5">
+                            <p:outputLabel for="username" value="Username:" />
+                            <p:inputText id="username" value="#{userSession.userName}"/>
+
+                            <p:outputLabel for="pw"  value="Password: " />
+                            <p:inputText id="pw" value="#{userSession.userPassword}"/>
+                        </p:panelGrid>
+                        <p:commandButton value="Login" action="#{userSession.login}" ajax="false"/>
+                    </h:form>
+                </h:panelGroup>
+
+                <ui:include src="indexReader.xhtml" />
+                <ui:include src="indexWriter.xhtml" />
+                <div class="ui-grid-col-2"><h:outputText value="&#160;" /></div>
+            </div>
+        </div>
+    </div>
+
+</h:body>
+</html>

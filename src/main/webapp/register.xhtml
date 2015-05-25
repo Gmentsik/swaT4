@@ -1,0 +1,31 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>News Aggregator - Register</title>
+</h:head>
+
+<h:body>
+    <ui:include src="menu.xhtml" />
+
+    <h:form>
+        <p:panelGrid columns="2" cellpadding="5">
+            <p:outputLabel for="username" value="Username:" />
+            <p:inputText id="username" value="#{userController.user.username}"/>
+
+            <p:outputLabel for="pw"  value="Password: " />
+            <p:inputText id="pw" value="#{userController.user.password}"/>
+            <p:commandButton value="Reset" type="reset" />
+        </p:panelGrid>
+        Register as a News...
+        <p:commandButton value="Reader" action="#{userController.addNewsReader}" ajax="false"/>
+        <p:commandButton value="Writer" action="#{userController.addNewsWriter}" ajax="false"/>
+    </h:form>
+
+
+
+</h:body>
+</html>
