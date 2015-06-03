@@ -3,6 +3,46 @@
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:p="http://primefaces.org/ui"
         xmlns:ui="http://java.sun.com/jsf/facelets">
+        <h:panelGroup rendered="#{userSession.loggedIn and userSession.reader}">
+                <p>Welcome, #{userSession.currentUser.username}</p>
+                <h:form>
+                        <p:dataTable
+                                value="#{newsItemController.getNewsFeed()}"
+                                id="newsfeedTable"
+                                widgetVar="newsItemTable"
+                                var="newsItem"  border="1"
+                                paginator="true"
+                                filteredValue="#{newsItemController.filteredNewsItemList}"
+                                rows="10">
 
+                                <p:column headerText="ID" sortBy="#{newsItem.id}">
+                                        <h:outputText value="#{newsItem.id}"/>
+                                </p:column>
+                                <p:column headerText="Title" sortBy="#{newsItem.title}">
+                                        <p:link outcome="show" value="#{newsItem.title}">
+                                                <f:param name="newsId" value="#{newsItem.id}"/>
+                                        </p:link>
+                                        <!--<p:link outcome="show" value="#{newsItem.title}" rendered="#{not userController.readByReader(feed)}" style="font-weight: bold">
+                                                <f:param name="newsId" value="#{newsItem.ID}"/>
+                                        </p:link>-->
 
+                                </p:column>
+                                <!--<p:column headerText="Topics">
+                                        <ui:repeat value="#{feed.assTopics}" var="topic">
+                                                <h:outputText value="#{topic.title}, "/>
+                                        </ui:repeat>
+                                </p:column>-->
+                                <!--<p:column headerText="Date" sortBy="#{feed.dateOfCreation}">
+                                        <h:outputText value="#{feed.dateOfCreation.toString()}"/>
+                                </p:column>-->
+                                <!--<p:column headerText="Owner">
+                                        <h:outputText value="#{feed.owner.usrName}"/>
+                                </p:column>
+                                <p:column headerText="Read" sortBy="#{userController.readByReader(feed)}">
+                                        <h:outputText value="#{userController.readByReader(feed)}"/>
+                                </p:column>-->
+
+                        </p:dataTable>
+                </h:form>
+        </h:panelGroup>
 </ui:composition>

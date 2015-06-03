@@ -11,10 +11,10 @@
         <p:menuitem value="Register" outcome="register"/>
         <f:facet name="options">
             Welcome,
-            <h:outputText value="#{userController.currentUser.usrName}" rendered="#{userController.loggedIn()}"/>
-            <h:outputText value="Guest" rendered="#{not userController.loggedIn()}"/>
+            <h:outputText value="#{userSession.currentUser.username}" rendered="#{userSession.loggedIn}"/>
+            <h:outputText value="Guest" rendered="#{not userSession.loggedIn}"/>
             <h:form style="display: inline;">
-                <p:commandButton ajax="false" actionListener="#{userController.logout()}" value="Logout" icon="ui-icon-extlink" style="margin-left: 50px;" />
+                <p:commandButton ajax="false" actionListener="#{userSession.logout}" value="Logout" icon="ui-icon-extlink" style="margin-left: 50px;" />
             </h:form>
         </f:facet>
     </p:menubar>

@@ -5,6 +5,7 @@ import entities.NewsWriter;
 import entities.User;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -27,9 +28,20 @@ public class UserManager {
     }
 
     public User findUser(String username, String password){
-        System.out.println("[UserManager.findUser("+ username + ", " + password + "):]");
-        System.out.println(userList.toString());
-        return userList.get(userList.indexOf(new User(username,password)));
+        System.out.print("[UserManager.findUser(" + username + ", " + password + "):");
+
+        Iterator userIterator = userList.iterator();
+        User findUser = new User(username,password);
+
+        while(userIterator.hasNext()){
+            User user = (User) userIterator.next();
+            if(user.equals(findUser)){
+                System.out.print("User(" + user.getUsername() + ", " + user.getPassword() + ");\n");
+                return user;
+            }
+        }
+        System.out.print(" null \n");
+        return null;
     }
 
     public NewsReader addNewsReader(String username, String password){
@@ -48,5 +60,29 @@ public class UserManager {
         userList.add(newsWriter);
         System.out.println(userList.toString());
         return newsWriter;
+    }
+
+    public NewsReader getNewsReader(String userName) {
+        Iterator userIterator = userList.iterator();
+
+        while(userIterator.hasNext()){
+            NewsReader newsReader = (NewsReader) userIterator.next();
+            if(newsReader.getUsername().equals(userName)){
+                return newsReader;
+            }
+        }
+        return null;
+    }
+
+    public NewsWriter getNewsWriter(String userName){
+        Iterator userIterator = userList.iterator();
+
+        while(userIterator.hasNext()){
+            NewsWriter newsWriter = (NewsWriter) userIterator.next();
+            if(newsWriter.getUsername().equals(userName)){
+                return newsWriter;
+            }
+        }
+        return null;
     }
 }

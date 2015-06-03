@@ -6,6 +6,7 @@ import entities.User;
 import manager.UserManager;
 
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import java.io.Serializable;
 
@@ -13,8 +14,9 @@ import java.io.Serializable;
  * Created by Gergely on 25.05.2015.
  */
 
-@Named
+//@ManagedBean(name="userSession")
 @SessionScoped
+@Named
 public class UserSession implements Serializable{
     private User    currentUser     = null;
     private String  userPassword    = null;
@@ -26,6 +28,23 @@ public class UserSession implements Serializable{
     public String login(){
         currentUser = userManager.findUser(userName,userPassword);
         return "/index.xhtml";
+    }
+
+
+    public String logout(){
+        if(currentUser != null){
+            FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+            currentUser = null;
+        }
+        return "index.xhtml";
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
     }
 
     public boolean isLoggedIn(){

@@ -8,8 +8,8 @@ import session.UserSession;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +17,6 @@ import java.util.List;
  * Created by Gergely on 25.05.2015.
  */
 
-//@Named(value = "userController")
 @ManagedBean(name="userController")
 @RequestScoped
 public class UserController {
@@ -30,8 +29,8 @@ public class UserController {
     private NewsWriter newsWriter = new NewsWriter();
     private List<User> userList = new ArrayList<>();
 
-    @Inject
-    UserSession userSession;
+    @ManagedProperty(value = "#{userSession}")
+    private UserSession userSession;
 
     public String addNewsWriter(){
         if(user != null){

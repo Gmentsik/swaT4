@@ -18,6 +18,18 @@ public class User {
         this.password = password;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof User){
+            if(this.getUsername().equals(((User)obj).getUsername())){
+                if(this.getPassword().equals(((User)obj).getPassword())){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public String getUsername() {
         return username;
     }
