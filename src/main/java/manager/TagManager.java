@@ -1,5 +1,10 @@
 package manager;
 
+import entities.Tag;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Gergely on 02.06.2015.
  */
@@ -10,6 +15,9 @@ public class TagManager {
         return ourInstance;
     }
 
-    private TagManager() {
-    }
+    private List<Tag> tagList = new ArrayList<>();
+
+    private TagManager() {}
+
+
 }

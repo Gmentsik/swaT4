@@ -10,4 +10,5 @@ import javax.faces.bean.RequestScoped;
 @ManagedBean(name="tagController")
 @RequestScoped
 public class TagController {
+
 }

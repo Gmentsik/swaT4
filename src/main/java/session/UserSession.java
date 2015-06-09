@@ -5,7 +5,8 @@ import entities.NewsWriter;
 import entities.User;
 import manager.UserManager;
 
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.enterprise.inject.Produces;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -16,7 +17,7 @@ import java.io.Serializable;
 
 //@ManagedBean(name="userSession")
 @SessionScoped
-@Named
+@Named(value="userSession")
 public class UserSession implements Serializable{
     private User    currentUser     = null;
     private String  userPassword    = null;
@@ -38,10 +39,16 @@ public class UserSession implements Serializable{
         }
         return "index.xhtml";
     }
-
-    public User getCurrentUser() {
+    @Produces
+    @Named("currentUser")
+    @LoggedIn
+    public User getCurrentUser(){
+        if(currentUser != null){
+            currentUser = userManager.findUser(currentUser.getUsername(),currentUser.getPassword());
+        }
         return currentUser;
     }
+
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;

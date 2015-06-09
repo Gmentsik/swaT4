@@ -63,7 +63,7 @@ public class UserManager {
     }
 
     public NewsReader getNewsReader(String userName) {
-        Iterator userIterator = userList.iterator();
+        Iterator userIterator = newsReaderList.iterator();
 
         while(userIterator.hasNext()){
             NewsReader newsReader = (NewsReader) userIterator.next();
@@ -75,7 +75,7 @@ public class UserManager {
     }
 
     public NewsWriter getNewsWriter(String userName){
-        Iterator userIterator = userList.iterator();
+        Iterator userIterator = newsWriterList.iterator();
 
         while(userIterator.hasNext()){
             NewsWriter newsWriter = (NewsWriter) userIterator.next();

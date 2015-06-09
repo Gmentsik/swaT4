@@ -5,9 +5,9 @@ import entities.NewsItem;
 import session.UserSession;
 
 import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,14 +15,13 @@ import java.util.List;
  * Created by Gergely on 25.05.2015.
  */
 
-//@ManagedBean(name="newsItemController")
+@ManagedBean(name="newsItemController")
 @RequestScoped
-@Named
+//@Named
 public class NewsItemController {
 
     @Inject
     private UserSession userSession;
-
 
     @EJB
     private NewsItemEJB newsItemEJB;
@@ -32,10 +31,6 @@ public class NewsItemController {
     private List<NewsItem> filteredNewsItemList = new ArrayList<>();
     private String newsTitle;
     private String newsContent;
-
-
-
-
     private String getNewsFeed;
 
     public String addNewsItem(){
@@ -47,7 +42,6 @@ public class NewsItemController {
     }
 
     public List<NewsItem> getNewsFeed(){
-
         if(userSession.isLoggedIn()) {
             System.out.println("GetNewsFeed1: " + userSession.getUserName());
             if(userSession.isReader()) {
