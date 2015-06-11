@@ -1,7 +1,9 @@
 package controller;
 
 import ejb.NewsItemEJB;
+import ejb.TopicEJB;
 import entities.NewsItem;
+import entities.NewsWriter;
 import session.UserSession;
 
 import javax.ejb.EJB;
@@ -17,7 +19,6 @@ import java.util.List;
 
 @ManagedBean(name="newsItemController")
 @RequestScoped
-//@Named
 public class NewsItemController {
 
     @Inject
@@ -26,36 +27,27 @@ public class NewsItemController {
     @EJB
     private NewsItemEJB newsItemEJB;
 
+    @EJB
+    private TopicEJB topicEJB;
+
     private NewsItem newsItem = new NewsItem();
     private List<NewsItem> newsItemList = new ArrayList<>();
     private List<NewsItem> filteredNewsItemList = new ArrayList<>();
     private String newsTitle;
     private String newsContent;
-    private String getNewsFeed;
+    private List<String> assignedTopics;
 
     public String addNewsItem(){
-        if(newsItem != null){
-            System.out.println("Added: " + newsItemEJB.addNewsItem(newsTitle, newsContent).getTitle());
+        if(newsItem != null && userSession.getCurrentUser() instanceof NewsWriter){
+            NewsItem newsItem = newsItemEJB.addNewsItem(newsTitle, newsContent, (NewsWriter) userSession.getCurrentUser());
+            for(String iTopic: assignedTopics){
+                topicEJB.addNewsToTopic(iTopic,newsItem);
+            }
             return "/index.xhtml";
         }
         return null;
     }
 
-    public List<NewsItem> getNewsFeed(){
-        if(userSession.isLoggedIn()) {
-            System.out.println("GetNewsFeed1: " + userSession.getUserName());
-            if(userSession.isReader()) {
-                System.out.println("GetNewsFeed2: " + userSession.getUserName());
-                if(userSession.getCurrentUser() != null){
-                    System.out.println("GetNewsFeed3: " + userSession.getUserName());
-                    newsItemList = newsItemEJB.generateNewsFeed();
-                    return newsItemList;
-                }
-            }
-        }
-
-        return null;
-    }
 
     public NewsItem getNewsItemById(int newsItemID){
         return newsItemEJB.getNewsItemById(newsItemID);
@@ -117,4 +109,11 @@ public class NewsItemController {
         this.filteredNewsItemList = filteredNewsItemList;
     }
 
+    public List<String> getAssignedTopics() {
+        return assignedTopics;
+    }
+
+    public void setAssignedTopics(List<String> assignedTopics) {
+        this.assignedTopics = assignedTopics;
+    }
 }

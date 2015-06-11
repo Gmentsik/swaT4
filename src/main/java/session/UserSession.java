@@ -25,7 +25,6 @@ public class UserSession implements Serializable{
 
     UserManager userManager = UserManager.getInstance();
 
-
     public String login(){
         currentUser = userManager.findUser(userName,userPassword);
         return "/index.xhtml";
@@ -39,6 +38,7 @@ public class UserSession implements Serializable{
         }
         return "index.xhtml";
     }
+
     @Produces
     @Named("currentUser")
     @LoggedIn
@@ -48,7 +48,6 @@ public class UserSession implements Serializable{
         }
         return currentUser;
     }
-
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
@@ -81,4 +80,6 @@ public class UserSession implements Serializable{
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
+
 }

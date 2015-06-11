@@ -40,4 +40,8 @@ public class TopicManager {
         }
         return null;
     }
+
+    public List<Topic> getTopicList() {
+        return this.topicList;
+    }
 }

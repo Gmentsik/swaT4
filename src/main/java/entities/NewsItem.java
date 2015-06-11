@@ -1,16 +1,21 @@
 package entities;
 
+import util.Message;
+
+import java.util.HashSet;
 import java.util.Set;
 
 /**
  * Created by Gergely on 25.05.2015.
  */
-public class NewsItem {
+public class NewsItem extends Message{
     private int id;
     private String title;
     private String content;
-    private Set<Topic> topicSet;
-    private Set<Tag> tagSet;
+    private Set<Topic> topicSet = new HashSet<>();
+    private Set<Tag> tagSet = new HashSet<>();
+    private Boolean read = false;
+    private NewsWriter author;
 
     public NewsItem(){}
 
@@ -22,6 +27,16 @@ public class NewsItem {
         this.id = newsItemID;
         this.title = title;
         this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        return "NewsItem{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", tagSet=" + tagSet +
+                '}';
     }
 
     public int getId() {
@@ -56,11 +71,27 @@ public class NewsItem {
         this.topicSet = topicSet;
     }
 
+    public Boolean getRead() {
+        return read;
+    }
+
+    public void setRead(Boolean read) {
+        this.read = read;
+    }
+
     public Set<Tag> getTagSet() {
         return tagSet;
     }
 
     public void setTagSet(Set<Tag> tagSet) {
         this.tagSet = tagSet;
+    }
+
+    public NewsWriter getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(NewsWriter author) {
+        this.author = author;
     }
 }

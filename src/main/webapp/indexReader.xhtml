@@ -5,14 +5,14 @@
         xmlns:ui="http://java.sun.com/jsf/facelets">
         <h:panelGroup rendered="#{userSession.loggedIn and userSession.reader}">
                 <p>Welcome, #{userSession.currentUser.username}</p>
-                <h:form>
+                <h:form id="tableForm">
                         <p:dataTable
-                                value="#{newsItemController.getNewsFeed()}"
+                                value="#{userController.getNewsFeed()}"
                                 id="newsfeedTable"
                                 widgetVar="newsItemTable"
                                 var="newsItem"  border="1"
                                 paginator="true"
-                                filteredValue="#{newsItemController.filteredNewsItemList}"
+                                filteredValue="#{userController.filteredNewsItemList}"
                                 rows="10">
 
                                 <p:column headerText="ID" sortBy="#{newsItem.id}">
@@ -22,8 +22,33 @@
                                         <h:outputText value="#{newsItem.title}"/>
                                 </p:column>
 
-                                <p:column headerText="Topics" sortBy="#{newsItem.title}">
-                                        <h:outputText value="#{newsItem.title}"/>
+                                <p:column headerText="Read" sortBy="#{newsItem.read}">
+                                        <h:outputText value="#{newsItem.read}"/>
+                                        <p:commandLink id="ajax1" update=":tableForm" actionListener="#{userController.markRead(newsItem.id)}" ajax="false">
+                                                <h:outputText value=" Read " />
+                                        </p:commandLink>
+                                </p:column>
+
+                                <p:column filterBy="#{newsItem.topicSet}"  headerText="Topics" filterMatchMode="contains">
+                                        <!--  <ui:repeat value="#{newsItem.topicSet}" var="topic">
+                                              <h:outputText value="#{topic.title}, "/>
+                                        </ui:repeat>-->
+                                </p:column>
+                                <p:column filterBy="#{newsItem.tagSet}" headerText="Tags" filterMatchMode="contains" >
+                                        <!-- <ui:repeat value="#{newsItem.tagSet}" var="tag">
+                                                <h:outputText value="#{tag.title}, "/>
+                                        </ui:repeat>-->
+                                </p:column>
+
+                                <p:column>
+                                <p:inputText binding="#{tag}" id="newTag"/>
+                                <p:commandLink id="ajax" update=":tableForm" actionListener="#{tagController.assignTag(tag,newsItem.id)}">
+                                        <h:outputText value=" + Add Topic" />
+                                </p:commandLink>
+
+                                </p:column>
+                                <p:column headerText="author">
+                                        <h:outputText value="#{newsItem.author.username}"/>
                                 </p:column>
                         </p:dataTable>
                 </h:form>

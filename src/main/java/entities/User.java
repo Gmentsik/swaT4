@@ -5,7 +5,7 @@ import javax.validation.constraints.Pattern;
 /**
  * Created by Gergely on 25.05.2015.
  */
-public class User {
+public class User{
     private String username;
 
     @Pattern(regexp = "((?=.*\\d)(?=.*[A-Z]).{6,})", message = "{invalid.password}")

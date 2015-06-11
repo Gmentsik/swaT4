@@ -20,4 +20,20 @@ public class TagManager {
     private TagManager() {}
 
 
+    public List<Tag> getTagList() {
+        return this.tagList;
+    }
+
+    public void addTag(Tag tag){
+        this.tagList.add(tag);
+    }
+
+    public Tag getTagByTitle(String tagTitle) {
+        for(Tag iTag: tagList){
+            if(iTag.getTitle().equals(tagTitle)){
+                return iTag;
+            }
+        }
+        return null;
+    }
 }

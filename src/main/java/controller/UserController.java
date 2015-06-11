@@ -1,11 +1,13 @@
 package controller;
 
 import ejb.UserEJB;
+import entities.NewsItem;
 import entities.NewsReader;
 import entities.NewsWriter;
 import entities.User;
 import session.UserSession;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -28,9 +30,15 @@ public class UserController {
     private NewsReader newsReader = new NewsReader();
     private NewsWriter newsWriter = new NewsWriter();
     private List<User> userList = new ArrayList<>();
+    private List<NewsItem> filteredNewsItemList = new ArrayList<>();
 
     @Inject
     private UserSession userSession;
+
+    @PostConstruct
+    public void init(){
+
+    }
 
     public String addNewsWriter(){
         if(user != null){
@@ -48,6 +56,38 @@ public class UserController {
         return null;
     }
 
+    public void markRead(String newsID){
+        for(NewsItem newsItem: userEJB.getNewsFeed()){
+           if(newsItem.getId() == Integer.getInteger(newsID)) {
+               if (newsItem.getRead()) {
+                   newsItem.setRead(false);
+               } else {
+                   newsItem.setRead(true);
+               }
+           }
+       }
+    }
+
+
+
+    public List<NewsItem> getNewsFeed(){
+        if(userSession.isLoggedIn()) {
+            if(userSession.isReader()) {
+                if(userSession.getCurrentUser() != null){
+                    return filteredNewsItemList = userEJB.getNewsFeed();
+                }
+            }
+        }
+        return null;
+    }
+
+    public List<NewsItem> getFilteredNewsItemList() {
+        return filteredNewsItemList;
+    }
+
+    public void setFilteredNewsItemList(List<NewsItem> filteredNewsItemList) {
+        this.filteredNewsItemList = filteredNewsItemList;
+    }
 
     public User getUser() {
         return user;

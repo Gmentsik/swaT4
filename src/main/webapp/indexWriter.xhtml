@@ -20,20 +20,20 @@
                                         <p:commandButton value="Clear" type="button" onclick="PF('editorWidget').clear();" icon="ui-icon-close" />
                                 </h:panelGrid>
 
-                                <!--<b>Topics: </b>
-                                <p:selectManyCheckbox id="grid" value="#{newsController.assignedTopics}" layout="grid" columns="3">
-                                        <f:selectItems value="#{topic.getTopics()}" var="topic" itemLabel="#{topic.title}" itemValue="#{topic.title}" />
-                                </p:selectManyCheckbox>-->
+                                <b>Topics: </b>
+                                <p:selectManyCheckbox id="grid" value="#{newsItemController.assignedTopics}" layout="grid" columns="3">
+                                        <f:selectItems value="#{topicController.topicList}" var="topic" itemLabel="#{topic.title}" itemValue="#{topic.title}" />
+                                </p:selectManyCheckbox>
 
                         </h:form>
 
-                        <!--<h:form>
+                       <h:form>
                                 <p:growl id="addTopic"/>
-                                <p:inputText value="#{newsController.newTopicTitle}" style="display:block"/>
-                                <p:commandLink id="ajax" update=":editor:grid, addTopic" actionListener="#{newsController.addNewTopic()}">
+                                <p:inputText value="#{topicController.topicTitle}" style="display:block"/>
+                                <p:commandLink id="ajax" update=":editorForm:grid, addTopic" actionListener="#{topicController.addTopic()}">
                                         <h:outputText value=" + Add Topic" />
                                 </p:commandLink>
-                        </h:form>-->
+                        </h:form>
                 </h:panelGroup>
         </div>
 

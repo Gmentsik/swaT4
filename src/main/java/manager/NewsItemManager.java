@@ -1,6 +1,7 @@
 package manager;
 
 import entities.NewsItem;
+import entities.NewsWriter;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -21,10 +22,12 @@ public class NewsItemManager {
 
     private NewsItemManager() {}
 
-    public NewsItem addNewsItem(String newsItemTitle, String newsItemContent) {
+    public NewsItem addNewsItem(String newsItemTitle, String newsItemContent, NewsWriter author) {
         NewsItem newsItem = new NewsItem(this.newsItemList.size(),newsItemTitle,newsItemContent);
+        newsItem.setAuthor(author);
+        System.out.println("Add NewsItem: " + newsItem.toString());
         newsItemList.add(newsItem);
-        return newsItemList.get(this.newsItemList.size()-1);
+        return newsItem;
     }
 
     public NewsItem findNewsItem(NewsItem newsItem){

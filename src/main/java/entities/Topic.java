@@ -1,28 +1,23 @@
 package entities;
 
-import java.util.HashSet;
-import java.util.Set;
+import util.Channel;
 
 /**
  * Created by Gergely on 25.05.2015.
  */
-public class Topic {
-    private static String title;
-    private Set<NewsItem> newsItemSet = new HashSet<>();
 
-    public static void setTitle(String title) {
-        Topic.title = title;
+public class Topic extends Channel{
+
+    private String title;
+   // private Set<NewsItem> newsItemSet = new HashSet<>();
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public static String getTitle() {
+    public String getTitle() {
         return title;
     }
 
-    public Set<NewsItem> getNewsItemSet() {
-        return newsItemSet;
-    }
 
-    public void setNewsItemSet(Set<NewsItem> newsItemSet) {
-        this.newsItemSet = newsItemSet;
-    }
 }

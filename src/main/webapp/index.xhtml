@@ -17,6 +17,10 @@
             <div class="ui-grid-col-2"><h:outputText value="&#160;" /></div>
 
             <div class="ui-grid-col-8" style="padding-left: 20px;">
+                <p:growl id="init" />
+                <h:outputText value="#{testInit.doInit()}"/>
+
+
                 <h:panelGroup rendered="#{not userSession.loggedIn}">
                     <p>Welcome, Guest!</p>
                     <p>Please Login or <a href="register.xhtml">Register a New Account</a> </p>
