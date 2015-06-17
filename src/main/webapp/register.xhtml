@@ -14,15 +14,15 @@
     <h:form>
         <p:panelGrid columns="2" cellpadding="5">
             <p:outputLabel for="username" value="Username:" />
-            <p:inputText id="username" value="#{userController.user.username}"/>
+            <p:inputText id="username" value="#{newsItemController.user.username}"/>
 
             <p:outputLabel for="pw"  value="Password: " />
-            <p:inputText id="pw" value="#{userController.user.password}"/>
+            <p:inputText id="pw" value="#{newsItemController.user.password}"/>
             <p:commandButton value="Reset" type="reset" />
         </p:panelGrid>
         Register as a News...
-        <p:commandButton value="Reader" action="#{userController.addNewsReader}" ajax="false"/>
-        <p:commandButton value="Writer" action="#{userController.addNewsWriter}" ajax="false"/>
+        <p:commandButton value="Reader" action="#{newsItemController.addNewsReader}" ajax="false"/>
+        <p:commandButton value="Writer" action="#{newsItemController.addNewsWriter}" ajax="false"/>
     </h:form>
 
 

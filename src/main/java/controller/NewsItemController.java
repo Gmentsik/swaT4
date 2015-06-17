@@ -2,13 +2,14 @@ package controller;
 
 import ejb.NewsItemEJB;
 import ejb.TopicEJB;
+import ejb.UserEJB;
 import entities.NewsItem;
 import entities.NewsWriter;
 import session.UserSession;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.List;
  */
 
 @ManagedBean(name="newsItemController")
-@RequestScoped
+@ViewScoped
 public class NewsItemController {
 
     @Inject
@@ -30,6 +31,9 @@ public class NewsItemController {
     @EJB
     private TopicEJB topicEJB;
 
+    @EJB
+    private UserEJB userEJB;
+
     private NewsItem newsItem = new NewsItem();
     private List<NewsItem> newsItemList = new ArrayList<>();
     private List<NewsItem> filteredNewsItemList = new ArrayList<>();
@@ -37,16 +41,45 @@ public class NewsItemController {
     private String newsContent;
     private List<String> assignedTopics;
 
+
+
     public String addNewsItem(){
         if(newsItem != null && userSession.getCurrentUser() instanceof NewsWriter){
             NewsItem newsItem = newsItemEJB.addNewsItem(newsTitle, newsContent, (NewsWriter) userSession.getCurrentUser());
             for(String iTopic: assignedTopics){
+
                 topicEJB.addNewsToTopic(iTopic,newsItem);
             }
             return "/index.xhtml";
         }
         return null;
     }
+    public List<NewsItem> getNewsFeed(){
+        if(userSession.isLoggedIn()) {
+            if(userSession.isReader()) {
+                if(userSession.getCurrentUser() != null){
+                    return filteredNewsItemList = userEJB.getNewsFeed();
+                }
+            }
+        }
+        return null;
+    }
+
+    public void markRead(String newsID){
+                int nID = Integer.parseInt(newsID);
+        System.out.println("NewsItemController.markRead("+newsID+");");
+        for(NewsItem newsItem: userEJB.getNewsFeed()){
+            if(newsItem.getId() == nID) {
+                if (newsItem.getRead()) {
+                    newsItem.setRead(false);
+                } else {
+                    newsItem.setRead(true);
+                }
+            }
+        }
+
+    }
+
 
 
     public NewsItem getNewsItemById(int newsItemID){

@@ -7,12 +7,12 @@
                 <p>Welcome, #{userSession.currentUser.username}</p>
                 <h:form id="tableForm">
                         <p:dataTable
-                                value="#{userController.getNewsFeed()}"
+                                value="#{newsItemController.getNewsFeed()}"
                                 id="newsfeedTable"
                                 widgetVar="newsItemTable"
                                 var="newsItem"  border="1"
                                 paginator="true"
-                                filteredValue="#{userController.filteredNewsItemList}"
+                                filteredValue="#{newsItemController.filteredNewsItemList}"
                                 rows="10">
 
                                 <p:column headerText="ID" sortBy="#{newsItem.id}">
@@ -24,26 +24,26 @@
 
                                 <p:column headerText="Read" sortBy="#{newsItem.read}">
                                         <h:outputText value="#{newsItem.read}"/>
-                                        <p:commandLink id="ajax1" update=":tableForm" actionListener="#{userController.markRead(newsItem.id)}" ajax="false">
+                                        <p:commandLink id="ajax1" update=":tableForm" actionListener="#{newsItemController.markRead(newsItem.id)}">
                                                 <h:outputText value=" Read " />
                                         </p:commandLink>
                                 </p:column>
 
-                                <p:column filterBy="#{newsItem.topicSet}"  headerText="Topics" filterMatchMode="contains">
-                                        <!--  <ui:repeat value="#{newsItem.topicSet}" var="topic">
+                                <p:column filterBy="#{newsItem.topicString}"  headerText="Topics" filterMatchMode="contains">
+                                          <ui:repeat value="#{newsItem.topicSet}" var="topic">
                                               <h:outputText value="#{topic.title}, "/>
-                                        </ui:repeat>-->
+                                        </ui:repeat>
                                 </p:column>
-                                <p:column filterBy="#{newsItem.tagSet}" headerText="Tags" filterMatchMode="contains" >
-                                        <!-- <ui:repeat value="#{newsItem.tagSet}" var="tag">
+                                <p:column filterBy="#{newsItem.tagString}" headerText="Tags" filterMatchMode="contains" >
+                                        <ui:repeat value="#{newsItem.tagSet}" var="tag">
                                                 <h:outputText value="#{tag.title}, "/>
-                                        </ui:repeat>-->
+                                        </ui:repeat>
                                 </p:column>
 
                                 <p:column>
                                 <p:inputText binding="#{tag}" id="newTag"/>
-                                <p:commandLink id="ajax" update=":tableForm" actionListener="#{tagController.assignTag(tag,newsItem.id)}">
-                                        <h:outputText value=" + Add Topic" />
+                                <p:commandLink id="ajax" update=":tableForm" actionListener="#{tagController.assignTag(tag.value,newsItem.id)}">
+                                        <h:outputText value=" + Add Tag" />
                                 </p:commandLink>
 
                                 </p:column>

@@ -45,8 +45,9 @@ public class TagController {
         if(!tagList.contains(iTag)){
             tagList.add(iTag);
         }
-        NewsItem newsItem = newsItemEJB.getNewsItemById(Integer.getInteger(newsID));
+        NewsItem newsItem = newsItemEJB.getNewsItemById(Integer.parseInt(newsID));
         newsItem.getTagSet().add(iTag);
+        //iTag.getNewsItemSet().add(newsItem);
         tagEJB.updateTags(newsItem);
         return "/index.xhtml";
     }

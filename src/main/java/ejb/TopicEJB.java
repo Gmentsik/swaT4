@@ -3,8 +3,8 @@ package ejb;
 import entities.NewsItem;
 import entities.Topic;
 import manager.TopicManager;
-import util.Broker;
-import util.IBroker;
+import broker.Broker;
+import broker.IBroker;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;

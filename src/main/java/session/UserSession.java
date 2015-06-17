@@ -15,7 +15,6 @@ import java.io.Serializable;
  * Created by Gergely on 25.05.2015.
  */
 
-//@ManagedBean(name="userSession")
 @SessionScoped
 @Named(value="userSession")
 public class UserSession implements Serializable{

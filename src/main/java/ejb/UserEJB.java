@@ -6,8 +6,8 @@ import entities.NewsWriter;
 import entities.Topic;
 import manager.UserManager;
 import session.UserSession;
-import util.Broker;
-import util.IBroker;
+import broker.Broker;
+import broker.IBroker;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;

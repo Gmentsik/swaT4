@@ -1,6 +1,6 @@
 package entities;
 
-import util.Channel;
+import broker.Channel;
 
 /**
  * Created by Gergely on 25.05.2015.

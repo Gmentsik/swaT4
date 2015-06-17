@@ -1,7 +1,7 @@
 package entities;
 
-import util.ISubscriber;
-import util.Message;
+import broker.ISubscriber;
+import broker.Message;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,9 +1,9 @@
 package entities;
 
-import util.Message;
+import broker.Message;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Gergely on 25.05.2015.
@@ -12,10 +12,12 @@ public class NewsItem extends Message{
     private int id;
     private String title;
     private String content;
-    private Set<Topic> topicSet = new HashSet<>();
-    private Set<Tag> tagSet = new HashSet<>();
+    private List<Topic> topicSet = new ArrayList<>();
+    private List<Tag> tagSet = new ArrayList<>();
     private Boolean read = false;
     private NewsWriter author;
+    private String topicString;
+    private String tagString;
 
     public NewsItem(){}
 
@@ -37,6 +39,30 @@ public class NewsItem extends Message{
                 ", content='" + content + '\'' +
                 ", tagSet=" + tagSet +
                 '}';
+    }
+
+    public String getTopicString() {
+        topicString = "";
+        for(Topic topic : topicSet){
+            topicString = topicString + topic.getTitle() + " ";
+        }
+        return topicString;
+    }
+
+    public void setTopicString(String topicString) {
+        this.topicString = topicString;
+    }
+
+    public String getTagString() {
+        tagString = "";
+        for(Tag tag : tagSet){
+            tagString = tagString + tag.getTitle() + " ";
+        }
+        return tagString;
+    }
+
+    public void setTagString(String tagString) {
+        this.tagString = tagString;
     }
 
     public int getId() {
@@ -63,12 +89,20 @@ public class NewsItem extends Message{
         this.content = content;
     }
 
-    public Set<Topic> getTopicSet() {
+    public List<Topic> getTopicSet() {
         return topicSet;
     }
 
-    public void setTopicSet(Set<Topic> topicSet) {
+    public void setTopicSet(List<Topic> topicSet) {
         this.topicSet = topicSet;
+    }
+
+    public List<Tag> getTagSet() {
+        return tagSet;
+    }
+
+    public void setTagSet(List<Tag> tagSet) {
+        this.tagSet = tagSet;
     }
 
     public Boolean getRead() {
@@ -79,13 +113,7 @@ public class NewsItem extends Message{
         this.read = read;
     }
 
-    public Set<Tag> getTagSet() {
-        return tagSet;
-    }
 
-    public void setTagSet(Set<Tag> tagSet) {
-        this.tagSet = tagSet;
-    }
 
     public NewsWriter getAuthor() {
         return author;

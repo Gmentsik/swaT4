@@ -8,7 +8,7 @@ import entities.NewsItem;
 import entities.NewsReader;
 import entities.NewsWriter;
 import entities.Topic;
-import util.Broker;
+import broker.Broker;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;

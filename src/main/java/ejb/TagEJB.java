@@ -4,8 +4,8 @@ import entities.NewsItem;
 import entities.Tag;
 import entities.Topic;
 import manager.TagManager;
-import util.Broker;
-import util.IBroker;
+import broker.Broker;
+import broker.IBroker;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -38,6 +38,10 @@ public class TagEJB {
     }
 
     public Tag getTagByTitle(String tagTitle) {
+        Tag iTag = tagManager.getTagByTitle(tagTitle);
+        if(iTag == null){
+            tagManager.addTag(new Tag(tagTitle));
+        }
         return tagManager.getTagByTitle(tagTitle);
     }
 }
